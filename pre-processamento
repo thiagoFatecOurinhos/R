@@ -1,0 +1,32 @@
+
+# Acessa o diretorio onde se encontra o Dataset
+setwd("C:\\Users\\thiag\\Google Drive\\Mestrado\\Datasets\\MachineLearningCVE")
+
+# Carrega o Dataset
+dataset <- read.csv("Wednesday-workingHours.pcap_ISCX.csv", header=TRUE,stringsAsFactors = TRUE)
+
+# Conversão de todos os campos para valores numéricos (exceto Labels)
+input <- data.matrix(dataset[,1:78])
+
+# Normalização dos valores para o intervalo 0 ... 1
+input_norm <- t(apply(input, 1, function(x)(x-min(x))/(max(x)-min(x))))
+
+# Adiciona as Labels ao dataset_preprocessado
+# obtem as Labels originais
+labels <- dataset[,79] 
+
+# Cria o 'dataset_preprocessado' com os valores normalizados à esquerda e as Labels à direita
+dataset_preprocessado <- merge(input_norm, labels, by = "row.names", all = TRUE)
+
+# Remove coluna 'row.names' por não ser necessária
+dataset_preprocessado <- dataset_preprocessado[,2:80]
+
+# Renomeia a coluna de 'y' para 'Label'
+names(dataset_preprocessado)[names(dataset_preprocessado) == 'y'] <- 'Label'
+
+# Remove valores NaN
+dataset_preprocessado <- dataset_preprocessado[complete.cases(dataset_preprocessado),]
+
+# Salvando em CSV
+write.csv(dataset_preprocessado,"dataset_preprocessado.csv", row.names = FALSE)
+
