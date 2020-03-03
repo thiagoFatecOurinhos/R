@@ -1,0 +1,112 @@
+install.packages("tidyverse")
+library("tidyverse")
+
+setwd("C:\\Users\\thiag\\Google Drive\\Fatec\\FATEC - Aulas\\2020-1\\SSORC2")
+
+training <- read.csv("kdd_train_normalizado_5perc.csv", header=TRUE,stringsAsFactors = TRUE)
+testing  <- read.csv("kdd_test_normalizado_5perc.csv", header=TRUE,stringsAsFactors = TRUE)
+
+
+################################## SUBSET_01 ############################################
+# SUBSET_01 - TREINAMENTO
+training_subset01 = training %>% select(duration,
+                                        protocol_type,
+                                        service,
+                                        flag,
+                                        src_bytes,
+                                        class)  
+write.csv(training_subset01, "kdd_training_subset01.csv", row.names = FALSE)
+
+# SUBSET_01 - TESTE
+testing_subset01 = testing %>% select(duration,
+                                      protocol_type,
+                                      service,
+                                      flag,
+                                      src_bytes,
+                                      class) 
+write.csv(testing_subset01, "kdd_testing_subset01.csv", row.names = FALSE)
+
+
+
+################################## SUBSET_02 ############################################
+# SUBSET_02 - TREINAMENTO
+training_subset02 = training %>% select(duration,
+                                        protocol_type,
+                                        service,
+                                        flag,
+                                        src_bytes,
+                                        class)  
+write.csv(training_subset02, "kdd_training_subset02.csv", row.names = FALSE)
+
+# SUBSET_02 - TESTE
+testing_subset02 = testing %>% select(duration,
+                                      protocol_type,
+                                      service,
+                                      flag,
+                                      src_bytes,
+                                      class) 
+write.csv(testing_subset02, "kdd_testing_subset02.csv", row.names = FALSE)
+
+
+
+################################## SUBSET_03 ############################################
+# SUBSET_03 - TREINAMENTO
+training_subset03 = training %>% select(duration,
+                                        protocol_type,
+                                        service,
+                                        flag,
+                                        src_bytes,
+                                        class)  
+write.csv(training_subset03, "kdd_training_subset03.csv", row.names = FALSE)
+
+# SUBSET_03 - TESTE
+testing_subset03 = testing %>% select(duration,
+                                      protocol_type,
+                                      service,
+                                      flag,
+                                      src_bytes,
+                                      class) 
+write.csv(testing_subset03, "kdd_testing_subset03.csv", row.names = FALSE)
+
+
+
+################################## SUBSET_04 ############################################
+# SUBSET_04 - TREINAMENTO
+training_subset04 = training %>% select(duration,
+                                        protocol_type,
+                                        service,
+                                        flag,
+                                        src_bytes,
+                                        class)  
+write.csv(training_subset04, "kdd_training_subset04.csv", row.names = FALSE)
+
+# SUBSET_04 - TESTE
+testing_subset04 = testing %>% select(duration,
+                                      protocol_type,
+                                      service,
+                                      flag,
+                                      src_bytes,
+                                      class) 
+write.csv(testing_subset04, "kdd_testing_subset04.csv", row.names = FALSE)
+
+
+
+################################## SUBSET_05 ############################################
+# SUBSET_05 - TREINAMENTO
+training_subset05 = training %>% select(duration,
+                                        protocol_type,
+                                        service,
+                                        flag,
+                                        src_bytes,
+                                        class)  
+write.csv(training_subset05, "kdd_training_subset05.csv", row.names = FALSE)
+
+# SUBSET_05 - TESTE
+testing_subset05 = testing %>% select(duration,
+                                      protocol_type,
+                                      service,
+                                      flag,
+                                      src_bytes,
+                                      class) 
+write.csv(testing_subset05, "kdd_testing_subset05.csv", row.names = FALSE)
+
