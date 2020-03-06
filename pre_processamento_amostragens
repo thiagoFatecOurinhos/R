@@ -1,0 +1,45 @@
+#############################
+# D I S C R E T I Z A Ç Ã O #
+#############################
+# Seleciona o diretório de trabalho
+setwd("C:\\Users\\thiag\\Google Drive\\Fatec\\FATEC - Aulas\\2020-1\\SSORC2")
+# Lê o arquivo CSV
+dataset <- read.csv("kdd_train.csv", header = TRUE, stringsAsFactors = TRUE)
+# Discretização dos valores
+dataset_b <- data.matrix(dataset)
+# Salvar o dataset discretizado
+write.csv(dataset_b, "kdd_train_discretizado.csv", row.names = FALSE)
+
+###########################
+# N O R M A L I Z A Ç Ã O #
+###########################
+# Cria o dataset_b_sem_class com todos os valores que devem ser normalizados
+dataset_b_sem_class <- dataset_b[,1:41]
+# Aplica a função de normalização criando o dataset_b_normalizado
+dataset_b_normalizado <- t(apply(dataset_b_sem_class, 1, function(x)(x-min(x))/(max(x)-min(x))))
+# Cria o dataset_final sendo ele à esquerda os valores
+# normalizados e à direita as classes
+dataset_final <- merge(dataset_b_normalizado, dataset_b[,42],  by = "row.names", all = TRUE)
+# Remove a coluna Row.Names
+dataset_final <- dataset_final[,2:43]
+
+
+# Renomeia a coluna de 'y' para 'Label'
+names(dataset_final)[names(dataset_final) == 'y'] <- 'class'
+
+# Deixa as labels em binario - 0 == BENIGNO | 1 == ATAQUE
+dataset_final$class[dataset_final$class == 1] <- 0
+dataset_final$class[dataset_final$class == 2] <- 1
+
+# Obtem amostras menores para traines mais rapidos
+amostra_1perc <- dataset_final[sample(nrow(dataset_final), (nrow(dataset_final)/100)*1), ]
+amostra_5perc <- dataset_final[sample(nrow(dataset_final), (nrow(dataset_final)/100)*5), ]
+amostra_10perc <- dataset_final[sample(nrow(dataset_final), (nrow(dataset_final)/100)*10), ]
+amostra_50perc <- dataset_final[sample(nrow(dataset_final), (nrow(dataset_final)/100)*50), ]
+
+# Salvando em CSV o dataset ooriginal e as amostras
+write.csv(amostra_1perc,"kdd_train_normalizado_1perc.csv", row.names = FALSE) # amostra de 1%
+write.csv(amostra_5perc,"kdd_train_normalizado_5perc.csv", row.names = FALSE) # amostra de 5%
+write.csv(amostra_10perc,"kdd_train_normalizado_10perc.csv", row.names = FALSE) # amostra de 10%
+write.csv(amostra_50perc,"kdd_train_normalizado_50perc.csv", row.names = FALSE) # amostra de 10%
+write.csv(dataset_final,"kdd_train_normalizado_100perc.csv", row.names = FALSE) # dataset inteiro
