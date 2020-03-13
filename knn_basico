@@ -1,0 +1,28 @@
+install.packages("caret")
+library(caret)
+
+
+setwd("C:\\Users\\thiag\\Google Drive\\Fatec\\FATEC - Aulas\\2020-1\\SSORC2")
+
+training <- read.csv("kdd_train_normalizado_1perc.csv", header = TRUE, stringsAsFactors = TRUE)
+testing  <- read.csv("kdd_test_normalizado_1perc.csv", header = TRUE, stringsAsFactors = TRUE)
+
+training[["class"]] = factor(training[["class"]])
+testing[["class"]] = factor(testing[["class"]])
+
+controleTreinamento <- trainControl(method = "repeatedcv", number = 10, repeats = 3)
+
+set.seed(1)
+
+modelo_knn <- train(class ~., data = training, method = "knn",
+                 trControl=controleTreinamento,
+                 tuneLength = 10)
+
+
+plot(modelo_knn)
+
+
+
+test_pred <- predict(modelo_knn, newdata = testing)
+confusionMatrix(test_pred, testing$class)
+
