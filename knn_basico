@@ -1,5 +1,7 @@
 install.packages("caret")
 library(caret)
+install.packages("e1071")
+library(e1071)
 
 
 setwd("C:\\Users\\thiag\\Google Drive\\Fatec\\FATEC - Aulas\\2020-1\\SSORC2")
