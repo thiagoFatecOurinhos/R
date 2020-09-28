@@ -11,8 +11,8 @@ dataset <- read.csv("Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv",
 
 
 
-# Discretiza o dataset (todos os dados serão transformados
-# em números inteiros positivos)
+# Discretiza o dataset (todos os dados serÃ£o transformados
+# em nÃºmeros inteiros positivos)
 dataset_b <- data.matrix(dataset)
 
 
@@ -29,12 +29,12 @@ dataset_d = subset(dataset_c, select = -c(15,16))
 
 
 # Seleciono somente as colunas de 1 a 76
-# pois não se deve normalizar as labels (classes)
+# pois nÃ£o se deve normalizar as labels (classes)
 dataset_sem_label <- dataset_d[,1:76]
 
 
 
-# Aplica a função de normalização
+# Aplica a funÃ§Ã£o de normalizaÃ§Ã£o
 #
 # novo_valor =  valor_atual - minimo_global
 #              -----------------------------
@@ -42,13 +42,13 @@ dataset_sem_label <- dataset_d[,1:76]
 dataset_e <- t(apply(dataset_sem_label, 1,
                      function(x)(x-min(x))/(max(x)-min(x))))
 
-# Para visualizar os dados sem notação científica: 
+# Para visualizar os dados sem notaÃ§Ã£o cientÃ­fica: 
 # options(scipen = 999)
 options(scipen = 999)
 
 # Gera o dataset_final contendo:
-# - à esquerda (dataset_e que é o dataset discrtizado e normalizado)
-# - à direita (dataset_d[,77] que é a coluna dos rótulos (ou labels))
+# - Ã  esquerda (dataset_e que Ã© o dataset discrtizado e normalizado)
+# - Ã  direita (dataset_d[,77] que Ã© a coluna dos rÃ³tulos (ou labels))
 dataset_final <- merge(dataset_e, dataset_d[,77],
                        by="row.names", all = TRUE)
 
@@ -56,10 +56,10 @@ dataset_final <- merge(dataset_e, dataset_d[,77],
 # pelo merge()
 dataset_final <- dataset_final[,2:78]
 
-# Renomeia a coluna de rótulos de "y" para "Label"
+# Renomeia a coluna de rÃ³tulos de "y" para "Label"
 names(dataset_final)[names(dataset_final) == "y"] <- "Label"
 
-# Transformar as Labels para binário
+# Transformar as Labels para binÃ¡rio
 # 1 -> benigno
 # 2 -> ataque
 dataset_final$Label[dataset_final$Label != 1] <- 0    
