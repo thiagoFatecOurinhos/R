@@ -1,4 +1,4 @@
-	library("EBImage")
+library("EBImage")
 setwd("/home/thiago/Área de Trabalho/")
 img <- readImage("pout.tif")*256
 options(digits = 2)
