@@ -1,0 +1,32 @@
+install.packages("caret")
+library(caret)
+install.packages("e1071")
+library(e1071)
+
+
+setwd("G:\\Meu Drive\\Fatec\\Fatec - Aulas\\2022-1\\Dataset")
+dataset <- read.csv("iot_1perc.csv")
+dataset[["Label"]] = factor(dataset[["Label"]])
+
+
+smp_size <- floor(0.70 * nrow(dataset))
+set.seed(123)
+amostra_treino <- sample(seq_len(nrow(dataset)), size = smp_size)
+
+training <- dataset[amostra_treino, ]
+testing <- dataset[-amostra_treino, ]
+
+controleTreinamento <- trainControl(method = "repeatedcv", number = 10, repeats = 3)
+
+
+modelo_knn <- train(Label ~., data = training, method = "knn",
+                    trControl=controleTreinamento,
+                    tuneLength = 10)
+
+
+plot(modelo_knn)
+
+
+
+test_pred <- predict(modelo_knn, newdata = testing)
+confusionMatrix(test_pred, testing$class)
